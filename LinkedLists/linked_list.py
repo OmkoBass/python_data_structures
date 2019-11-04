@@ -2,6 +2,7 @@ class linkedList:
     
     first = None
     last = None
+    length = 0
     
 
     def add(self, to_add):
@@ -14,6 +15,8 @@ class linkedList:
         else:
             self.last.next = to_add
             self.last = to_add
+
+        self.length += 1
     
 
     def print(self):
@@ -65,6 +68,9 @@ class linkedList:
 
 
     def __getitem__(self, index):
+        if index < 0 or index >= self.length:
+            raise IndexError
+
         temp = self.first
         i = 0
         while temp:
@@ -76,6 +82,9 @@ class linkedList:
         return None
 
     def __setitem__(self, index, value):
+        if index < 0 or index >= self.length:
+            raise IndexError
+
         temp = self.first
         i = 0
         while temp:
@@ -121,3 +130,6 @@ mylist[2] = 1
 
 for element in mylist:
     print(element)
+
+# this should give error
+# print(mylist[34])
