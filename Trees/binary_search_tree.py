@@ -1,4 +1,4 @@
-class node:
+class Node:
     def __init__(self, value):
         self.value = value
         self.left = None
@@ -8,7 +8,7 @@ class node:
         return str(self.value)
 
     def preorder(self):
-        print(f"{self.value} ", end = "")
+        print(f"{self.value} ", end="")
         if self.left:
             self.left.preorder()
         if self.right:
@@ -17,7 +17,7 @@ class node:
     def inorder(self):
         if self.left:
             self.left.inorder()
-        print(f"{self.value} ", end = "")
+        print(f"{self.value} ", end="")
         if self.right:
             self.right.inorder()
         
@@ -26,30 +26,37 @@ class node:
             self.left.postorder()
         if self.right:
             self.right.postorder()
-        print(f"{self.value} ", end = "")
-    
+        print(f"{self.value} ", end="")
 
-class binarytree:
-    def __init__(self):
-        self.root = None
+    def tree_sum(self):
+        t_sum = self.value
+        if self.left:
+            t_sum += self.left.tree_sum()
+        if self.right:
+            t_sum += self.right.tree_sum()
+        return t_sum
+
+
+class BinaryTree:
+    root = None
 
     def add(self, newnode):
-        if newnode is not node:
-            node(newnode)
+        if type(newnode) is not Node:
+            newnode = Node(newnode)
 
         if self.root is None:
             self.root = newnode
             return
         
         if newnode.value < self.root.value:
-            if self.root.left is not None:
+            if self.root.left:
                 self.root.left.add(newnode)
-            elif self.root.left is None:
+            else:
                 self.root.left = newnode
         elif newnode.value > self.root.value:
-            if self.root.right is not None:
+            if self.root.right:
                 self.root.right.add(newnode)
-            elif self.root.right is None:
+            else:
                 self.root.right = newnode    
 
     def preorder(self):
@@ -62,13 +69,14 @@ class binarytree:
         self.root.postorder()
     
     def tree_sum(self):
-        self.root.tree_sum()        
+        return self.root.tree_sum()
 
-mytree = binarytree()
 
-mytree.add(node(16))
-mytree.add(node(8))
-mytree.add(node(22))
+mytree = BinaryTree()
+
+mytree.add(Node(16))
+mytree.add(Node(8))
+mytree.add(22)
 
 mytree.inorder()
 
